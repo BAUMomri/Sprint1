@@ -1,5 +1,6 @@
 'use strict'
 
+
 // The model
 var gBoard;
 // var gBoard = {
@@ -56,19 +57,12 @@ function buildBoard() {
                 isShown: false,
                 isMarked: false,
                 isMine: false,
-                minesAroundCount: setMinesNegsCount()
+                minesAroundCount: 0
             };
         }
     }
 
     return board;
-}
-
-
-// Count mines around each cell and set the cell's minesAroundCount.
-function setMinesNegsCount(board) {
-    board = gBoard;
-
 }
 
 
@@ -79,8 +73,7 @@ function renderBoard(board) {
         strHTML += '<tr class=\'row\'>\n';
         for (var j = 0; j < board[0].length; j++) {
             var cell = board[i][j];
-            strHTML += '\t<td class="cell"  onclick="cellClicked(' + cell.minesAroundCount + ',' + cell.i + ',' + cell.j + ',' + cell.isShown + ',' + cell.isMarked + ',' + cell.isMine + ')" >\n';
-
+            strHTML += `\t<td class="cell ${cell.isShown?'show':''}"  onclick="cellClicked(${cell.minesAroundCount}, ${cell.i}, ${cell.j}, ${cell.isShown}, ${cell.isMarked}, ${cell.isMine})">${cell.isShown?cell.minesAroundCount:''}</td>`
         }
         strHTML += '</tr>\n';
     }
@@ -90,18 +83,82 @@ function renderBoard(board) {
 }
 
 function cellClicked(minesAroundCount, i, j, isShown, isMarked, isMine) {
+    var selectedCell = gBoard[i][j];
+    console.log("cellClicked -> selectedCell", selectedCell)
+
     if (gameOn === false) {
-        createMines();
+        createMines(i,j);
         gameOn = true;
+        setMinesNegsCount(gBoard)
+        openNeighbors(i,j,gBoard)
+        renderBoard(gBoard)
+    }else {
+        if (selectedCell.isMine === true) {
+            console.log('boomb')
+        }
+        
     }
-    setMinesNegsCount();
+    selectedCell.isShown = true;
 }
 
-function createMines() {
-    for (var i = 0; i < 3; i++) {
-        var randomI = Math.floor(Math.random() * 4) + 1;
-        var randomJ = Math.floor(Math.random() * 4) + 1;
-        var coords = gBoard[randomI][randomJ];
-        coords.isMine = true;
+function createMines(i,j) {
+    var bombCount = 0;
+    while (bombCount < 2) {
+        var randomI = Math.floor(Math.random() * 3) + 1;
+        var randomJ = Math.floor(Math.random() * 3) + 1;
+        if ((randomI == i && randomJ == j) || 
+            (randomI == i-1 && randomJ == j-1) ||
+            (randomI == i-1 && randomJ ==j)||
+            (randomI == i-1 && randomJ ==j+1) ||
+            (randomI == i && randomJ ==j-1) ||
+            (randomI ==i && randomJ ==j+1) ||
+            (randomI ==i+1  && randomJ ==j-1) ||
+            (randomI ==i+1 && randomJ ==j) ||
+            (randomI ==i+1 && randomJ ==j+1) &&  !gBoard[randomI][randomJ].isMine){
+                continue;
+            }  
+            bombCount++
+        gBoard[randomI][randomJ].isMine = true;
     }
+}
+
+function countNeighbors(cellI, cellJ, board) {
+    var neighborsSum = 0;
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i >= board.length) continue;
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (board[i][j] != undefined) {
+                if (i === cellI && j === cellJ) continue;
+                if (j < 0 || j >= board[i].length) continue;
+                if (board[i][j].isMine) neighborsSum++;
+            }
+        }
+    }
+    return neighborsSum;
+}
+
+function openNeighbors(cellI, cellJ, board) {
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i >= board.length) continue;
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (board[i][j] != undefined) {
+                if (i === cellI && j === cellJ) continue;
+                if (j < 0 || j >= board[i].length) continue;
+                board[i][j].isShown = true; 
+            }
+        }
+    }
+
+}
+
+// Count mines around each cell and set the cell's minesAroundCount.
+function setMinesNegsCount(board) {
+    for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (!board[i][j].isMine){
+            board[i][j].minesAroundCount = countNeighbors(i,j,board);
+        }
+    }
+}
+
 }
