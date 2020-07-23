@@ -4,17 +4,26 @@
 <head>
   <meta charset="utf-8">
   <title>Mine Sweeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Wallpoet&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload="initGame()">
+<body oncontextmenu="return false;" onload="initGame()">
+
+  <div class="app">
   <h1>Mine Sweeper</h1>
-  <span class='buttons'></span>
+  <div class='task-bar'>
+    <div class="task-bar-hints"></div>
+    <div class="task-bar-buttons"></div>
+  </div>
+  <div class="timer">
+    <label id="minutes">00</label>:<label id="seconds">00</label>
+  </div>
   <table>
     <tbody class="board"></tbody>
   </table>
+</div>
   <script src="js/main.js"></script>
-  <script src="js/util.js"></script>
 
 
 </body>

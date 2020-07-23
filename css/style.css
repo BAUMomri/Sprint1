@@ -1,8 +1,40 @@
-body {
-    background-color: darkgrey;
-    color:white;
-}
+body {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;
+    background: url('../img/camobackground.jpg') darkgrey;
+    color:white; text-align: center; font-size:28px;
 
+}
+h1 {text-shadow: 5px 5px 9px black;}
+button, input {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;}
+.hide{
+    display: none;
+}
+#hint,
+#reset {
+    width:80px;
+    height: 80px;
+    background-size: contain;
+    background-color: transparent;
+    border: 0;
+}
+#reset[data-state="idle"]  {
+    background-image: url(../img/happy.png);
+    background-size: contain;
+    background-color: transparent;
+    border: 0;
+}
+#reset[data-state="win"] {
+    background-image:  url('../img/WIN.jpg') ;
+}
+#reset[data-state="lose"] {
+    background-image:  url('../img/dead.jpg');
+}
+#hint[data-hint="on"] {
+    background-image:  url('../img/bulbon.png');
+}
+#hint[data-hint="off"] {
+    background-image:  url('../img/bulboff.png');
+}
+#reset:focus {outline: none;}
 .cell {
     
     color:white;
@@ -10,21 +42,54 @@ body {
      height:40px;
      text-align: center;
     }
-
     .cell.show{
         color: black;
     }
+    .cell.marked{
+        color: red;
+    }
+    .cell.show.clicked-cell{
+        color:blue
+    }
 
-/* .cell img {width:25px; height:auto}
-.floor {background-color: gray}
-.teleport {background-color: gray}
-.wall {background-color: brown} */
+    .clicked-cell{
+        color:blue
+    }
+    
+    .cell.bomb{
+        color: red;
+    }
 
 table {
-    margin-top:20px;
+    margin:20px auto auto;
+    border: 5px solid black;
+    
 }
 
 .row{
     min-width: 1000px;
     background-color:white;
+}
+
+.game {
+    padding: 10px;
+    border: solid 1px;
+}
+.task-bar-buttons .game:nth-child(1) {background-color: lightgreen}
+.task-bar-buttons .game:nth-child(2) {background-color: lightsalmon}
+.task-bar-buttons .game:nth-child(3) {background-color: lightcoral}
+.task-bar {
+    margin: 0 auto 2rem;
+}
+
+.app {
+    margin: auto;
+    width: 600px;
+    border-radius: 2px;
+    background: rgba(25, 143, 60, 0.671);
+    padding: 45px;
+}
+
+.timer {
+    text-shadow: 0 1px 0 black;
 }
