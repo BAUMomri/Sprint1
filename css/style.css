@@ -1,32 +1,48 @@
-body {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;
-    background: url('../img/camobackground.jpg') darkgrey;
+body {
+    font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;
+    background: url('../img/camo.jpg');
     color:white; text-align: center; font-size:28px;
 
 }
-h1 {text-shadow: 5px 5px 9px black;}
-button, input {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;}
+
+h1 {
+    text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;;
+    color: #000000
+}
+
+button, input {
+    font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;
+}
+
 .hide{
     display: none;
+
 }
 #hint,
 #reset {
-    width:80px;
-    height: 80px;
+    width:65px;
+    height:65px;
     background-size: contain;
     background-color: transparent;
-    border: 0;
+    border: 0; vertical-align: middle;
 }
 #reset[data-state="idle"]  {
-    background-image: url(../img/happy.png);
+    background-image: url('../img/happy.png');
     background-size: contain;
     background-color: transparent;
     border: 0;
 }
 #reset[data-state="win"] {
-    background-image:  url('../img/WIN.jpg') ;
+    background-image:  url('../img/WIN.png') ;
+    background-size: contain;
+    background-color: transparent;
+    border: 0;
 }
 #reset[data-state="lose"] {
-    background-image:  url('../img/dead.jpg');
+    background-image:  url('../img/dead.png');
+    background-size: contain;
+    background-color: transparent;
+    border: 0;
 }
 #hint[data-hint="on"] {
     background-image:  url('../img/bulbon.png');
@@ -35,19 +51,23 @@ button, input {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;}
     background-image:  url('../img/bulboff.png');
 }
 #reset:focus {outline: none;}
+#hint:focus {outline: none;}
+
+.show{
+    color: white;
+}
+
 .cell {
-    
-    color:white;
+     color:white;
      width:40px;
      height:40px;
      text-align: center;
+     border: rgb(0, 0, 0) solid 1px;
     }
     .cell.show{
         color: black;
     }
-    .cell.marked{
-        color: red;
-    }
+
     .cell.show.clicked-cell{
         color:blue
     }
@@ -56,40 +76,50 @@ button, input {font-family: 'Wallpoet', Arial, Helvetica, sans-serif, cursive;}
         color:blue
     }
     
-    .cell.bomb{
-        color: red;
-    }
 
 table {
     margin:20px auto auto;
-    border: 5px solid black;
+    border: 1.5px solid black;
     
 }
 
 .row{
     min-width: 1000px;
-    background-color:white;
+    background-color:rgba(0, 0, 0, 0.479);
 }
 
 .game {
     padding: 10px;
     border: solid 1px;
 }
-.task-bar-buttons .game:nth-child(1) {background-color: lightgreen}
-.task-bar-buttons .game:nth-child(2) {background-color: lightsalmon}
-.task-bar-buttons .game:nth-child(3) {background-color: lightcoral}
-.task-bar {
-    margin: 0 auto 2rem;
+.game:focus {box-shadow:0 0 8px rgb(220, 255, 174);}
+.task-bar { min-height: 70px;
+    margin: 10px 0 10px;
+
+
 }
+.task-bar-buttons{
+    margin-top: 33.5px;
+    margin-bottom: 19px;
+}
+.task-bar-buttons .game:nth-child(1) {font-family: Monospace, Helvetica, sans-serif, cursive; background-color: rgb(132, 175, 97);}
+.task-bar-buttons .game:nth-child(2) {font-family: Monospace, Helvetica, sans-serif, cursive; background-color: rgb(204, 203, 203);}
+.task-bar-buttons .game:nth-child(3) {font-family: Monospace, Helvetica, sans-serif, cursive; background-color: rgb(245, 79, 79);}
 
 .app {
     margin: auto;
     width: 600px;
-    border-radius: 2px;
-    background: rgba(25, 143, 60, 0.671);
+    border-radius: 50px;
+    background: rgba(153, 153, 153, 0.493);
     padding: 45px;
 }
 
 .timer {
-    text-shadow: 0 1px 0 black;
+    font-size: 22px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin-bottom: 30px;
+}
+
+.show,.clicked-cell {
+    background: rgba(196, 196, 196, 0.829);
 }
